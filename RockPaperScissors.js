@@ -1,63 +1,76 @@
-
-function playRound (playerSelection, computerSelection){
-// your code here!
-let winner = null;
-let playerScore = 0;
+const buttons = document.querySelectorAll('input')
+let playerScore = 0
 let computerScore = 0
-let computerSelection = getComputerChoice();
-let playerSelection = playerSelection();
-  if(playerSelection > computerSelection){
-    winner = "Player 1 is Champion ";
-  }
-  else if(computerSelection > playerSelection){
-    winner = "Player 2 is Champion ";
-  }
 
-  return winner + "You Lose! Paper beats Rock"
+// Disable buttons
+function disableButtons() {
+    buttons.forEach(element => {
+        element.disabled = true
+    })
 }
-//const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
 
 
-function getComputerChoice() {
-let cpuPoints = 0;
-let x = Math.floor(Math.random() * 3);
-let y = "";
-if( x === 0){
-  let y = "Rock";
-  console.log("Computer Choice : ", y);
+// For Each button adds event listener To Call Play Round
+buttons.forEach(button => {
+    button.addEventListener('click', function(){
+        playRound(button.value)
+    })
+})
+
+
+
+
+
+
+
+//Plays Actual Round of Game
+
+function playRound(playerChoice) {
+
+let computerChoice = computerPlay();
+
+let result = ""
+
+  if((playerChoice  == 'Rock' && computerChoice == 'Scissors')||
+      (playerChoice == 'Scissors' && computerChoice == 'Paper')||
+      (playerChoice == 'Paper' && computerChoice == 'Rock'))
+  {
+    playerScore += 1;
+    scoreCard = (" You Win Congrats! " + playerChoice + " Beats " + computerChoice + " everytime! " + "<br><br><br><br> "
+    + "<br> Computer Score : " + computerScore + "<br> Player Score : " + playerScore);
+
+
+    if (playerScore == 7) {
+      scoreCard += '<br><br>You won the game! Reload the page to play again'
+        disableButtons()
+    }
+
 }
-else if(x === 1){
-let  y =  "Paper";
-console.log("Computer Choice : ",y)
+else if (playerChoice == computerChoice){
+  scoreCard = ('It\'s a tie. You both chose (' + playerSelection + ")"
+         + "<br><br>Player score: " + playerScore + "<br>Computer score: " + computerScore)
 }
+
 else {
-  x = 2;
-let  y = "Scissors"
-  console.log("Computer Choice : ", y)
-}
+
+  computerScore += 1
+  scoreCard = ("You Lose! <br>Computer Score : " + computerScore + " <br>Player Score : " + playerScore );
+
+  if(computerScore == 7){
+    scoreCard += "<br> <br>Bots Rule The World Lets Play Again!"
+    disableButtons()
+  }
 
 }
 
-function playerSelection(){
-let playerPoints = 0;
-let playerSelect = onclick();
-let playerchoice = null;
-let rock = document.getElementById("Rock");
-let paper = document.getElementById("Paper");
-let scissors = document.getElementById("Scissors");
-
-if(playerSelect === rock ){
-  playerchoice = 0;
+document.getElementById('scoreCard').innerHTML = scoreCard
+  return
 
 }
-else if(playerSelect === paper){
-  playerchoice = 1;
-}
-else if (playerSelect === scissors) {
-  playerchoice = 2
-}
 
 
+// Allows the computer to randomly Choose between Rock, Paper, or Scissors
+function computerPlay() {
+    let choices = ['Rock', 'Paper', 'Scissors']
+    return choices[Math.floor(Math.random() * choices.length)]
 }
