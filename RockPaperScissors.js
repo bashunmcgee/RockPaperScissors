@@ -9,6 +9,12 @@ function disableButtons() {
     })
 }
 
+// Allows the computer to randomly Choose between Rock, Paper, or Scissors
+function computerPlay() {
+    let choices = ['rock', 'paper', 'scissors']
+    return choices[Math.floor(Math.random() * choices.length)]
+}
+
 
 // For Each button adds event listener To Call Play Round
 buttons.forEach(button => {
@@ -29,14 +35,14 @@ function playRound(playerChoice) {
 
 let computerChoice = computerPlay();
 
-let result = ""
+let scoreCard = ""
 
-  if((playerChoice  == 'Rock' && computerChoice == 'Scissors')||
-      (playerChoice == 'Scissors' && computerChoice == 'Paper')||
-      (playerChoice == 'Paper' && computerChoice == 'Rock'))
+  if((playerChoice  == 'rock' && computerChoice == 'scissors')||
+      (playerChoice == 'scissors' && computerChoice == 'paper')||
+      (playerChoice == 'paper' && computerChoice == 'rock'))
   {
     playerScore += 1;
-    scoreCard = (" You Win Congrats! " + playerChoice + " Beats " + computerChoice + " everytime! " + "<br><br><br><br> "
+    scoreCard = (" You Win Congrats! " + playerChoice + " Beats " + computerChoice + " everytime! " + "<br>"
     + "<br> Computer Score : " + computerScore + "<br> Player Score : " + playerScore);
 
 
@@ -46,31 +52,31 @@ let result = ""
     }
 
 }
-else if (playerChoice == computerChoice){
-  scoreCard = ('It\'s a tie. You both chose (' + playerSelection + ")"
-         + "<br><br>Player score: " + playerScore + "<br>Computer score: " + computerScore)
-}
+else if ((playerChoice == 'rock' && computerChoice  == 'paper') ||
+        (playerChoice == 'scissors' && computerChoice  == 'rock') ||
+        (playerChoice == 'paper' && computerChoice == 'scissors')){
+
+          computerScore += 1
+
+
+          scoreCard = ("<br><br> You Lose! " + computerChoice +  " Beats "+ playerChoice + " <br>Computer Score : " + computerScore + " <br>Player Score : " + playerScore );
+
+          if(computerScore == 7){
+            scoreCard += "<br> <br>Bots Rule The World Lets Play Again!"
+            disableButtons()
+          }
+
+  }
 
 else {
 
-  computerScore += 1
-  scoreCard = ("You Lose! <br>Computer Score : " + computerScore + " <br>Player Score : " + playerScore );
 
-  if(computerScore == 7){
-    scoreCard += "<br> <br>Bots Rule The World Lets Play Again!"
-    disableButtons()
-  }
+  scoreCard = ( "<br>Computer and Human have Chose The same option? Its a Draw. <br><br>Player score: " + playerScore + "<br>Computer score: " + computerScore)
+
 
 }
 
 document.getElementById('scoreCard').innerHTML = scoreCard
   return
 
-}
-
-
-// Allows the computer to randomly Choose between Rock, Paper, or Scissors
-function computerPlay() {
-    let choices = ['Rock', 'Paper', 'Scissors']
-    return choices[Math.floor(Math.random() * choices.length)]
 }
