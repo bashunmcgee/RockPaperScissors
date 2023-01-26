@@ -75,7 +75,6 @@ else {
 //Tie Outcome
   scoreCard = ( "<br>Computer and Human have Chose The same option? Its a Draw. <br><br>Player score: " + playerScore + "<br>Computer score: " + computerScore)
 
-
 }
 
 document.getElementById('scoreCard').innerHTML = scoreCard
