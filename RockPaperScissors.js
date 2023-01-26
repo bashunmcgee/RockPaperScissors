@@ -31,9 +31,9 @@ buttons.forEach(button => {
 
 //Plays Actual Round of Game
 
-function playRound(playerChoice) {
+function playRound(playerChoice, computerChoice) {
 
-let computerChoice = computerPlay();
+computerChoice = computerPlay();
 
 let scoreCard = ""
 
